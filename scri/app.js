@@ -31,7 +31,7 @@ app.engine('html', nunjucks.render);
 //   console.log(output);
 // });
 
-models.db.sync({force: true})
+models.db.sync({force: false})
 .then(function () {
     // make sure to replace the name below with your express app
     app.listen(3000, function () {

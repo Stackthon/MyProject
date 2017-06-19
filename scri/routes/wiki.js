@@ -10,30 +10,48 @@ router.get('/', function(req, res, next) {
 });
 
 
+
 router.post('/', function(req, res, next) {
-	// client.query('INSERT INTO Page (title,content) VALUES ($1) RETURNING*',[req.body.title,req.body.content], function(err, result){
-	// 	if(err) next(err);
-	// 	var user = result.row[0];
-		//client.query('INSERT INTO Users (content) VALUES ($1) RETURNING*',[req.body.content], function(err, result){
-	//});
 
 	 var page = Page.build({
     title: req.body.title,
     content: req.body.content
   });
   //res.json(req.body);
-  console.log("helppp");
-  page.save();
-  res.render('addpage');
+  
+  page.save().then(function(savedPage){
+    res.redirect(savedPage.route); // route virtual FTW
+    }).catch(next);
+  //res.render('addpage');
+  //res.json(page);
 });
 
 router.get('/add', function(req, res) {
   res.render('addpage');
 });
 
-// router.get('/add', function(req, res, next) {
-//   res.send('got to GET /wiki/add');
-// });
+
+
+router.get('/:urlTitle', function (req, res, next) {
+
+  Page.findOne({ 
+    where: { 
+      urlTitle: req.params.urlTitle 
+    } 
+  })
+  .then(function(foundPage){
+    res.render('wikipage', {page: foundPage});
+    //res.json(foundPage);
+  })
+  .catch(next);
+
+});
+
+router.get('/:urlTitle', function (req, res, next) {
+  res.send('hit dynamic route at ' + req.params.urlTitle);
+});
+
+
 
 
 
