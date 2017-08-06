@@ -43,11 +43,15 @@ constructor(props) {
            Alert.alert(
              'A little chilly',
              'grab a light jacket'
-           ) : null
+           ) : this.state.rovers < 90 ?
+
+           Alert.alert(
+              'Its hot'
+           ) : Alert.alert(
+              'Go eat icecream')
 
        }
        </Text>
-       <List list={this.state.rovers} />
      </View>
    );
  }
