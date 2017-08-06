@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { AppRegistry,View, Text, StyleSheet} from 'react-native';
 import MapView from 'react-native-maps';
 import { StackNavigator } from 'react-navigation';
+import suggestions from './Seed';
+
 
 var locations = [{
 			coordinate:{
@@ -29,11 +31,11 @@ export default class Maps extends Component {
 						}}
 		       >
 		       {
-		       	locations.map((location) => (
+		       	suggestions.map((suggestion) => (
 		       		<MapView.Marker
-					      coordinate={location.coordinate}
-					      title={"title"}
-					      description={"description"}
+					      coordinate={suggestion.coordinate}
+					      title={suggestion.name}
+					      description={suggestion.description}
 			        />
 			       ))
 		       	}
