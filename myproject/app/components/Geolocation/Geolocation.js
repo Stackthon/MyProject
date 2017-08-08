@@ -37,56 +37,20 @@ class Geolocation extends Component {
   };
   render() {
     console.log(this.state, 'state');
-    const { navigate } = this.props.navigation;
+    var navigate  = this.props.navigation.navigate
+   // const { navigate } = this.props.navigation;
     const currentLat = this.state.latitude;
     const currentLong = this.state.longitude;
 
     return (
-      <ImageBackground
-        style={styles.backgroundImage}
-        source={require('./rain.jpg')}
-      >
-        <View style={{ flex: 1, justifyContent: "center", alignItems: "stretch" }} >
+        <View  style={{ flex: 1, justifyContent: "center", alignItems: "stretch" }} >
           {this.state.error ? <Text>Error: {this.state.error}</Text> : null}
-
-          <Temperature latitude={currentLat} longitude={currentLong}  />
-          <TouchableHighlight
-            onPress={() => navigate('Maps', {latitude: currentLat, longitude:currentLong})}
-            underlayColor={'white'}
-
-            >
-            <Text style={styles.button}>
-             let's go!
-            </Text>
-          </TouchableHighlight>
+          <Temperature latitude={currentLat} longitude={currentLong} navigate={navigate}/>
         </View>
-       </ImageBackground>
-
-
     );
   }
 }
 
 export default Geolocation;
-
-const styles = StyleSheet.create({
-  backgroundImage: {
-    flex: 1,
-    width: null,
-    height: null,
-  },
-  button: {
-
-    color: '#ffffff',
-    fontSize: 40,
-    textAlign: 'center',
-    marginTop: 70,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#fff',
-    padding: 10
-  },
-});
-
 
 AppRegistry.registerComponent('Geolocation', () => Geolocation);
