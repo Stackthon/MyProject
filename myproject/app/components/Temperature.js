@@ -68,7 +68,7 @@ export default class Temperature extends Component {
           </Text>
           <TouchableHighlight
             onPress={() =>
-              this.props.navigate('Maps', { latitude: this.state.latitude, longitude: this.state.longitude })}
+              this.props.navigate('Maps', { latitude: this.state.latitude, longitude: this.state.longitude, temperature: this.state.rovers })}
             underlayColor={'white'}
           >
             <Text style={styles.button}>

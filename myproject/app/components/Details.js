@@ -17,8 +17,8 @@ export default class Details extends Component {
 				source={require('./Geolocation/details.jpg')}
 			>
 			<View style={{ flex: 1, justifyContent: "center", alignItems: "center" }} >
-				<Text style={styles.text}>{params.name}{"\n"}{params.address}{"\n"}{params.phone}{"\n"}</Text>
-				<Text style={styles.description}>{params.description}</Text>
+				<Text style={styles.text}>Name: {params.name}{"\n"}Address: {params.address}{"\n"} {params.address2}, {params.address3} {"\n"} Phone: {params.phone}</Text>
+				{/* <Text style={styles.description}>{params.description}</Text> */}
 			</View>
 			</ImageBackground>
 		)
@@ -36,8 +36,8 @@ const styles = StyleSheet.create({
 		// justifyContent: 'center',
 		// alignItems: 'center',
     color: '#ffffff',
-    fontSize: 50,
-    textAlign: 'center',
+    fontSize: 30,
+    textAlign: 'left',
 		textAlignVertical: 'center',
 		backgroundColor: 'rgba(0,0,0,0)'
 	},
