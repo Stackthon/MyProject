@@ -52,8 +52,7 @@ export default class Temperature extends Component {
   render() {
     const index = this.state.place.indexOf('/');
     const place = this.state.place.slice(index + 1).replace('_', ' ');
-
-    // const { navigate } = this.props.navigation;
+    const editedPlace = place.toLowerCase().replace(/ /g, '');
     const summary = this.state.summary;
 
     return (
@@ -68,7 +67,7 @@ export default class Temperature extends Component {
           </Text>
           <TouchableHighlight
             onPress={() =>
-              this.props.navigate('Maps', { latitude: this.state.latitude, longitude: this.state.longitude, temperature: this.state.rovers })}
+              this.props.navigate('Maps', { latitude: this.state.latitude, longitude: this.state.longitude, temperature: this.state.rovers, city: editedPlace })}
             underlayColor={'white'}
           >
             <Text style={styles.button}>

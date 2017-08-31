@@ -20,18 +20,42 @@ export default class Maps extends Component {
 
 
 	componentDidMount(){
-		console.log('temp here', this.state.temperature);
-		// const auth = {method: 'get', headers: { "Authorization": "Bearer btNkn1XX9ZJvF9exIHWvIPlsQtiCnCb5_ELZaBzvg5yB0Zag83IDfEWpCsvBfgEvRZ9EerChrRe8Ymy03tXB4vtU7J9ISU86iioTDA3hzHAeCUc9BVab0swBmi-mWXYx"}}
+		const tempHere = this.props.navigation.state.params.temperature;
+		const city = this.props.navigation.state.params.city;
+		console.log('city', city);
 
-		// 	fetch("https://api.yelp.com/v3/businesses/search?term=parks&location=newyork", auth)
-		// 			.then(response => response.json())
-		// 			.then(res => {
-		// 				console.log('res', res.businesses[0]['name']);
-		// 				this.setState({
-		// 					businesses: res.businesses
-		// 				})
-		// 			}
-		// 		);
+		const auth = {method: 'get', headers: { "Authorization": "Bearer btNkn1XX9ZJvF9exIHWvIPlsQtiCnCb5_ELZaBzvg5yB0Zag83IDfEWpCsvBfgEvRZ9EerChrRe8Ymy03tXB4vtU7J9ISU86iioTDA3hzHAeCUc9BVab0swBmi-mWXYx"}}
+
+			if(tempHere > 65 && tempHere < 85) {
+			fetch("https://api.yelp.com/v3/businesses/search?categories=zoos,playgrounds,beaches,observatories,amusementparks&location=" + city, auth)
+					.then(response => response.json())
+					.then(res => {
+						this.setState({
+							businesses: res.businesses
+						})
+					}
+				);
+			}
+			else if(tempHere <=65 && tempHere > 45){
+				fetch("https://api.yelp.com/v3/businesses/search?categories=cafes,zoos,playgrounds,observatories,parks&location=" + city, auth)
+				.then(response => response.json())
+				.then(res => {
+					this.setState({
+						businesses: res.businesses
+					})
+				}
+			);
+			}
+			else if(tempHere <=45){
+				fetch("https://api.yelp.com/v3/businesses/search?categories=movietheaters,museums,observatories,coffeeshop,skatingrinkss&location=" + city, auth)
+				.then(response => response.json())
+				.then(res => {
+					this.setState({
+						businesses: res.businesses
+					})
+				}
+			);
+			}
 	}
 
 	render(){
@@ -39,36 +63,8 @@ export default class Maps extends Component {
 		const { navigate } = this.props.navigation;
 		const { params } = this.props.navigation.state;
 		const businesses = this.state.businesses;
-		const temperature = params.temperature;
-		this.state.temperature !== null ? this.setState({temperature: params.temperature}) : null;
 
-		const auth = {method: 'get', headers: { "Authorization": "Bearer btNkn1XX9ZJvF9exIHWvIPlsQtiCnCb5_ELZaBzvg5yB0Zag83IDfEWpCsvBfgEvRZ9EerChrRe8Ymy03tXB4vtU7J9ISU86iioTDA3hzHAeCUc9BVab0swBmi-mWXYx"}}
-
-			if(this.state.businesses.length === 0 && params.temperature > 65 && params.temperature < 80){
-
-				fetch("https://api.yelp.com/v3/businesses/search?categories=zoos,playgrounds,beaches,observatories,tennis&location=newyork", auth)
-							.then(response => response.json())
-							.then(res => {
-								console.log('res', res.businesses[0]['name']);
-								this.setState({
-									businesses: res.businesses
-								})
-							}
-						);
-
-			} else if (this.state.businesses.length === 0 && params.temperature <= 65){
-				fetch("https://api.yelp.com/v3/businesses/search?categories=restaurants,yoga,museums,movietheaters,observatories&location=newyork", auth)
-				.then(response => response.json())
-				.then(res => {
-					console.log('res', res.businesses[0]['name']);
-					this.setState({
-						businesses: res.businesses
-					})
-				}
-			);
-			}
-
-						console.log('businesses', this.state.businesses);
+	console.log('businesses', this.state.businesses);
 
 		return(
 		     <MapView

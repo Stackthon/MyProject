@@ -36,9 +36,7 @@ class Geolocation extends Component {
     title: 'Forecast',
   };
   render() {
-    console.log(this.state, 'state');
     var navigate  = this.props.navigation.navigate
-   // const { navigate } = this.props.navigation;
     const currentLat = this.state.latitude;
     const currentLong = this.state.longitude;
 
